@@ -13,12 +13,15 @@ public class StumpGrow : MonoBehaviour
     float prevBranchAngle;
 
     public GameObject branchSprite;
+    public GameObject oneWayPlatform;
     public Camera cam;
     public float distanceBetweenBranchSprites;
     public float maxBranchLength;
     public float maxAngleBetweenBranches;
     public bool isLeft;
+    public bool showOnTop;
     public float initialScale;
+    public float initialRotation;
     public GameManager manager;
 
     float totalBranchLength;
@@ -40,9 +43,6 @@ public class StumpGrow : MonoBehaviour
 
         int deleteBranch = manager.GetBranchIDToDelete();
 
-        Debug.Log(branchID);
-        Debug.Log(deleteBranch);
-
         if (deleteBranch != -1)
         {
             manager.DeleteBranch(deleteBranch);
@@ -57,9 +57,8 @@ public class StumpGrow : MonoBehaviour
 
         prevBranchPos = GetMousePosInWorld();
         prevMousePosWorld = GetMousePosInWorld();
+        prevBranchAngle = initialRotation;
         GameObject firstBranchSprite = SpawnBranch(prevBranchPos);
-
-        firstBranchSprite.GetComponent<Collider2D>().enabled = false;
 
         FindObjectOfType<AudioManager>().Play("StumpGrowStart");
     }
@@ -88,6 +87,7 @@ public class StumpGrow : MonoBehaviour
                 totalBranchLength += distanceBetweenBranchSprites;
             }
             prevMousePosWorld = mousePosWorld;
+            
         }
         
     }
@@ -121,14 +121,14 @@ public class StumpGrow : MonoBehaviour
             growDirection = new Vector2(Mathf.Cos(angle / 360 * 2 * (Mathf.PI)) * distanceBetweenBranchSprites,
                 Mathf.Sin(angle / 360 * 2 * (Mathf.PI)) * distanceBetweenBranchSprites);
         }
-        Debug.Log(growDirection.normalized);
+
 
 
         return growDirection;
     }
     private GameObject SpawnBranch(Vector2 pos)
     {
-        GameObject branchPart = Instantiate(branchSprite, (Vector3)pos, Quaternion.Euler(0,0,-180.0f));
+        GameObject branchPart = Instantiate(branchSprite, (Vector3)pos, Quaternion.Euler(0,0, initialRotation + 180.0f));
         branchPart.transform.localScale = new Vector3(1, initialScale, 1);
         SpriteRenderer[] arr = branchPart.GetComponentsInChildren<SpriteRenderer>();
 
@@ -136,10 +136,21 @@ public class StumpGrow : MonoBehaviour
         {
             prevBranchAngle = -branchPart.transform.rotation.eulerAngles.z;
         }
-        Debug.Log(prevBranchAngle);
 
         foreach (SpriteRenderer s in arr)
         {
+            if (!isLeft)
+            {
+                if (s.sortingLayerID == SortingLayer.NameToID("RightBranchForeground"))
+                {
+                    s.sortingLayerName = "LeftBranchForeground";
+                }
+                else if (s.sortingLayerID == SortingLayer.NameToID("RightBranchBackground"))
+                {
+                    s.sortingLayerName = "LeftBranchBackground";
+                }
+
+            }
             s.sortingOrder = spriteNum;
         }
 
@@ -160,16 +171,30 @@ public class StumpGrow : MonoBehaviour
 
         float scale = (1.0f - totalBranchLength / maxBranchLength) * initialScale;
 
-        if (scale > 0.05f)
+        if (scale > 0.1f)
         {
             GameObject branchPart = Instantiate(branchSprite, (Vector3)(prevBranchPos + growDirection), orientation);
+            GameObject platform = Instantiate(oneWayPlatform, (Vector3)(prevBranchPos + growDirection), Quaternion.identity);
 
+            platform.transform.SetParent(branchPart.transform);
             branchPart.transform.localScale = new Vector3(1, scale, 1);
 
             SpriteRenderer[] arr = branchPart.GetComponentsInChildren<SpriteRenderer>();
 
             foreach (SpriteRenderer s in arr)
             {
+                if (!isLeft && !showOnTop)
+                {
+                    if (s.sortingLayerID == SortingLayer.NameToID("RightBranchForeground"))
+                    {
+                        s.sortingLayerName = "LeftBranchForeground";
+                    }
+                    else if (s.sortingLayerID == SortingLayer.NameToID("RightBranchBackground"))
+                    {
+                        s.sortingLayerName = "LeftBranchBackground";
+                    }
+
+                }
                 s.sortingOrder = spriteNum;
             }
 
