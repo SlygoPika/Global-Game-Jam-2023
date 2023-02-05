@@ -75,6 +75,8 @@ public class MovePlayer : MonoBehaviour
         controller.velocity = new Vector2(horizontalMovement * speed,
             controller.velocity.y);
 
+        animator.SetFloat("Speed", Mathf.Abs(horizontalMovement * speed));
+
         controller.rotation = -horizontalMovement * tiltAngle;
 
         if ((horizontalMovement > 0.05f || horizontalMovement < -0.05f))
@@ -84,6 +86,7 @@ public class MovePlayer : MonoBehaviour
         {
             walkTimeElapsed = 0.0f;
         }
+
     }
 
     private void Jump()
@@ -106,4 +109,8 @@ public class MovePlayer : MonoBehaviour
         this.canJump = canJump;
     }
 
+    public float GetVelocityY()
+    {
+        return controller.velocity.y;
+    }
 }
