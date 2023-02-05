@@ -72,10 +72,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   branchSprite: {fileID: 7804736979840495971, guid: 0bdd007dd9619441eab474fc94a58648, type: 3}
+  oneWayPlatform: {fileID: 5589996369317048209, guid: ee2600f986695d84684b738c29942b03, type: 3}
   cam: {fileID: 0}
   distanceBetweenBranchSprites: 0.35
   maxBranchLength: 8
   maxAngleBetweenBranches: 15
   isLeft: 0
+  showOnTop: 0
   initialScale: 1
+  initialRotation: 0
   manager: {fileID: 0}

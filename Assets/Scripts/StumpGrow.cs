@@ -23,10 +23,10 @@ public class StumpGrow : MonoBehaviour
     public float initialScale;
     public float initialRotation;
     public GameManager manager;
+    public Animator playerAnimator;
 
     float totalBranchLength;
     float tempMaxAngle;
-
     float camHeight;
     float camWidth;
 
@@ -36,6 +36,9 @@ public class StumpGrow : MonoBehaviour
 
     private void OnMouseDown()
     {
+        playerAnimator.SetBool("BranchIsGrowing", true);
+        Invoke("DisableGrowAnimation", 0.8f);
+
         tempMaxAngle = maxAngleBetweenBranches;
 
         spriteNum = 0;
@@ -57,8 +60,15 @@ public class StumpGrow : MonoBehaviour
 
         prevBranchPos = GetMousePosInWorld();
         prevMousePosWorld = GetMousePosInWorld();
-        prevBranchAngle = initialRotation;
+        if (!isLeft)
+        {
+            prevBranchAngle = -(initialRotation + 180.0f);
+        } else
+        {
+            prevBranchAngle = initialRotation;
+        }
         GameObject firstBranchSprite = SpawnBranch(prevBranchPos);
+        
 
         FindObjectOfType<AudioManager>().Play("StumpGrowStart");
     }
@@ -122,19 +132,28 @@ public class StumpGrow : MonoBehaviour
                 Mathf.Sin(angle / 360 * 2 * (Mathf.PI)) * distanceBetweenBranchSprites);
         }
 
-
-
         return growDirection;
     }
     private GameObject SpawnBranch(Vector2 pos)
     {
-        GameObject branchPart = Instantiate(branchSprite, (Vector3)pos, Quaternion.Euler(0,0, initialRotation + 180.0f));
+        GameObject branchPart;
+        if (!isLeft)
+        {
+            branchPart = Instantiate(branchSprite, (Vector3)pos, Quaternion.Euler(0, 0, -(initialRotation)));
+        } else
+        {
+            branchPart = Instantiate(branchSprite, (Vector3)pos, Quaternion.Euler(0, 0, -(initialRotation + 180.0f)));
+        }
+        
         branchPart.transform.localScale = new Vector3(1, initialScale, 1);
         SpriteRenderer[] arr = branchPart.GetComponentsInChildren<SpriteRenderer>();
 
         if (isLeft)
         {
             prevBranchAngle = -branchPart.transform.rotation.eulerAngles.z;
+        }else
+        {
+            prevBranchAngle = branchPart.transform.rotation.eulerAngles.z;
         }
 
         foreach (SpriteRenderer s in arr)
@@ -202,6 +221,10 @@ public class StumpGrow : MonoBehaviour
 
             manager.AddBranchSprite(branchID, branchPart);
         }
+        else
+        {
+            playerAnimator.SetBool("BranchIsGrowing", false);
+        }
         tempMaxAngle = ShortenAngle();
     }
 
@@ -220,5 +243,10 @@ public class StumpGrow : MonoBehaviour
     private float ShortenAngle()
     {
         return maxAngleBetweenBranches - totalBranchLength / (maxBranchLength * 3) * maxAngleBetweenBranches;
+    }
+
+    private void DisableGrowAnimation()
+    {
+        playerAnimator.SetBool("BranchIsGrowing", false);
     }
 }

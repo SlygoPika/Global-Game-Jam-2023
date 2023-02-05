@@ -9,7 +9,7 @@ public class GroundCheck : MonoBehaviour
     {
         if (collision.tag == "Ground" || collision.tag == "Stump")
         {
-            if (player.GetVelocityY() < 0.1f)
+            if (player.GetVelocityY() < 0.3f)
             {
                 player.SetCanJump(true);
             }

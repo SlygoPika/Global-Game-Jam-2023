@@ -49,6 +49,9 @@ TagManager:
   - name: LeftBranchBackground
     uniqueID: 700718405
     locked: 0
+  - name: TopLeftTree
+    uniqueID: 777164661
+    locked: 0
   - name: LeftTree
     uniqueID: 980716339
     locked: 0
@@ -57,6 +60,9 @@ TagManager:
     locked: 0
   - name: RightBranchBackground
     uniqueID: 1007443251
+    locked: 0
+  - name: TopRightTree
+    uniqueID: 1425417095
     locked: 0
   - name: RightTree
     uniqueID: 344596091

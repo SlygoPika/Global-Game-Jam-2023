@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,9 +8,22 @@ public class GameManager : MonoBehaviour
 
     public int maxBranches;
     public float deleteDelay;
+    public Animator gameEnder;
+    public int StartTimer;
+    public AudioManager audioManager;
 
     Stack<GameObject>[] branches;
     Stack<GameObject> deleteBranch;
+    float timeLeft;
+    bool hasEnded;
+    string nextScene;
+
+    private void Awake()
+    {
+        timeLeft = StartTimer;
+        hasEnded = false;
+        audioManager.PlayOnLoop("DarkTheme");
+    }
 
     private void Start()
     {
@@ -21,6 +35,25 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void FixedUpdate()
+    {
+        timeLeft -= Time.deltaTime;
+
+        if (timeLeft <= 0)
+        {
+            timeLeft = 0;
+        }
+        if (timeLeft == 0 && !hasEnded)
+        {
+            hasEnded = true;
+            EndGame("GameOver");
+        }
+    }
+
+    public int GetTimeLeft()
+    {
+        return (int)(timeLeft + 0.99f);
+    }
 
     public void DeleteBranch(int branchID)
     {
@@ -81,5 +114,22 @@ public class GameManager : MonoBehaviour
     private void DebugText()
     {
         Debug.Log("uwu");
+    }
+
+    public void EndGame(string nextScene)
+    {
+        this.nextScene = nextScene;
+        audioManager.Play("Death");
+        gameEnder.SetTrigger("FadeOut");
+    }
+
+    public void OnFadeComplete()
+    {
+        SceneManager.LoadScene(nextScene);
+    }
+
+    public void AddTime(int time)
+    {
+        timeLeft += time;
     }
 }
