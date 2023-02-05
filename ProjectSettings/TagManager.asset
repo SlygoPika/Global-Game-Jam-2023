@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - Stump
+  - Vine
   layers:
   - Default
   - TransparentFX
@@ -40,6 +41,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: BackImages
+    uniqueID: 2044625319
+    locked: 0
   - name: BACKGROUND
     uniqueID: 3768359119
     locked: 0
