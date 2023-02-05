@@ -10,6 +10,7 @@ public class MovePlayer : MonoBehaviour
     public float speed;
     public float tiltAngle;
     public float footstepDelay;
+    public bool facingRight = true;
 
     private float horizontalMovement;
     [SerializeField] private float jumpHeight;
@@ -30,6 +31,15 @@ public class MovePlayer : MonoBehaviour
     {
         horizontalMovement = Input.GetAxis("Horizontal");
 
+    // if direction character is facing does not match direction travelled, flip the sprite
+        if(horizontalMovement > 0 && !facingRight){
+            Flip();
+        }
+
+        if(horizontalMovement < 0 && facingRight){
+            Flip();
+        }
+    
         if (Input.GetKeyDown(KeyCode.Space) && canJump)
         {
             Jump();
@@ -44,6 +54,15 @@ public class MovePlayer : MonoBehaviour
 
             walkTimeElapsed = 0;
         }
+    }
+
+    // flip the character sprite
+    void Flip(){
+        GameObject player = GameObject.FindWithTag("Player");
+        Vector3 currentScale = player.transform.localScale;
+        currentScale.x *= -1;
+        player.transform.localScale = currentScale;
+        facingRight = !facingRight;
     }
 
 
