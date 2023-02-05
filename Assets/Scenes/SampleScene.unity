@@ -270,7 +270,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 43984015}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.2099996, y: 1.2199996, z: -10}
+  m_LocalPosition: {x: -7.209999, y: 1.2199996, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -560,35 +560,28 @@ PolygonCollider2D:
       - {x: 9.483684, y: -24.328344}
       - {x: 8.784426, y: -23.745628}
       - {x: 8.405662, y: -23.483408}
-      - {x: 7.7355394, y: -23.162914}
-      - {x: 6.5609617, y: -22.638472}
-      - {x: 6.511838, y: -22.521929}
-      - {x: 6.4535666, y: -22.43452}
-      - {x: 6.3658233, y: -22.377943}
-      - {x: 6.111565, y: -22.250898}
-      - {x: 6.0163665, y: -22.194317}
-      - {x: 5.8706865, y: -22.16298}
-      - {x: 5.907105, y: -22.159084}
-      - {x: 5.617441, y: -22.08049}
-      - {x: 5.319476, y: -21.991386}
-      - {x: 4.618015, y: -21.41477}
-      - {x: 4.297522, y: -21.152548}
-      - {x: 3.9187572, y: -20.511562}
-      - {x: 3.9187572, y: -19.608355}
-      - {x: 3.8604858, y: -18.588602}
-      - {x: 4.0353003, y: -18.326382}
-      - {x: 4.588879, y: -17.219223}
-      - {x: 5.025915, y: -16.286879}
-      - {x: 5.3172727, y: -15.645893}
-      - {x: 5.4629517, y: -15.034042}
-      - {x: 5.725173, y: -14.6261425}
-      - {x: 6.6283813, y: -13.781205}
-      - {x: 6.744924, y: -13.839478}
-      - {x: 6.919739, y: -13.868613}
-      - {x: 7.2402315, y: -13.693798}
-      - {x: 7.4733176, y: -13.431577}
-      - {x: 7.7355394, y: -13.198491}
-      - {x: 8.172575, y: -13.14022}
+      - {x: 7.7639666, y: -23.33348}
+      - {x: 7.32189, y: -23.183662}
+      - {x: 7.002899, y: -23.056799}
+      - {x: 6.6757317, y: -22.885273}
+      - {x: 6.11643, y: -22.680817}
+      - {x: 4.5043044, y: -21.898043}
+      - {x: 3.9692397, y: -21.813206}
+      - {x: 3.4469717, y: -21.499336}
+      - {x: 3.1369932, y: -19.992128}
+      - {x: 2.8213015, y: -17.012518}
+      - {x: 3.3145633, y: -14.682023}
+      - {x: 3.8886375, y: -13.726263}
+      - {x: 5.0274844, y: -13.350392}
+      - {x: 5.5313845, y: -13.214307}
+      - {x: 5.808733, y: -13.126919}
+      - {x: 6.02762, y: -13.076863}
+      - {x: 6.5791965, y: -12.948693}
+      - {x: 6.9404535, y: -12.812101}
+      - {x: 7.5716867, y: -12.803013}
+      - {x: 7.804773, y: -12.872246}
+      - {x: 8.046278, y: -12.970615}
+      - {x: 8.193291, y: -13.03664}
       - {x: 8.376526, y: -12.9654045}
       - {x: 8.580476, y: -13.2567625}
       - {x: 8.726154, y: -13.2567625}
@@ -1835,7 +1828,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.2099996, y: 1.2199996, z: -10}
+  m_LocalPosition: {x: -7.209999, y: 1.2199996, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3794,6 +3787,10 @@ PrefabInstance:
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3106324775391769527, guid: 768d3d1e8b5f14c50a035fc531419250, type: 3}
+      propertyPath: maxAngleBetweenBranches
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3106324775391769527, guid: 768d3d1e8b5f14c50a035fc531419250, type: 3}
       propertyPath: distanceBetweenBranchSprites
       value: 0.4
       objectReference: {fileID: 0}
@@ -3814,12 +3811,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7138264400799430442, guid: 768d3d1e8b5f14c50a035fc531419250, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.6924069
+      objectReference: {fileID: 0}
+    - target: {fileID: 7138264400799430442, guid: 768d3d1e8b5f14c50a035fc531419250, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.65
       objectReference: {fileID: 0}
     - target: {fileID: 7138264400799430442, guid: 768d3d1e8b5f14c50a035fc531419250, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -15.953104
+      value: -15.8665
       objectReference: {fileID: 0}
     - target: {fileID: 7138264400799430442, guid: 768d3d1e8b5f14c50a035fc531419250, type: 3}
       propertyPath: m_LocalPosition.z

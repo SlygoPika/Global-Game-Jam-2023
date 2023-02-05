@@ -7,6 +7,8 @@ public class MovePlayer : MonoBehaviour
 {
 
     Rigidbody2D controller;
+    Animator animator;
+
     public float speed;
     public float tiltAngle;
     public float footstepDelay;
@@ -24,6 +26,7 @@ public class MovePlayer : MonoBehaviour
     {
         controller = GetComponent<Rigidbody2D>();
         jumpPower = Mathf.Sqrt(-2 * Physics2D.gravity.y * controller.gravityScale * jumpHeight);
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -90,10 +93,16 @@ public class MovePlayer : MonoBehaviour
         int rand = (int) Random.Range(0.0f, 100.0f) % 2 + 1;
 
         FindObjectOfType<AudioManager>().Play("Jump" + rand);
+
+        animator.SetBool("isJumping", true);
     }
 
     public void SetCanJump(bool canJump)
     {
+        if (!this.canJump && canJump)
+        {
+            animator.SetBool("isJumping", false);
+        }
         this.canJump = canJump;
     }
 
