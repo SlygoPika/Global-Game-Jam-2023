@@ -40,6 +40,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: BranchForeground
+    uniqueID: 2319747803
+    locked: 0
+  - name: BranchBackground
+    uniqueID: 1007443251
+    locked: 0
+  - name: Background
+    uniqueID: 344596091
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

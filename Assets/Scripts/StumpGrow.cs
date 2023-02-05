@@ -20,10 +20,13 @@ public class StumpGrow : MonoBehaviour
     float camHeight;
     float camWidth;
 
+
+    int spriteNum;
     int branchID;
 
     private void OnMouseDown()
     {
+        spriteNum = 0;
         branchID = manager.GetNewBranchID();
 
         int deleteBranch = manager.GetBranchIDToDelete();
@@ -89,6 +92,14 @@ public class StumpGrow : MonoBehaviour
     private GameObject SpawnBranch(Vector2 pos)
     {
         GameObject branchPart = Instantiate(branchSprite, (Vector3)pos, Quaternion.identity);
+        SpriteRenderer[] arr = branchPart.GetComponentsInChildren<SpriteRenderer>();
+
+        foreach (SpriteRenderer s in arr)
+        {
+            s.sortingOrder = spriteNum;
+        }
+
+        spriteNum++;
 
         manager.AddBranchSprite(branchID, branchPart);
 
@@ -109,6 +120,15 @@ public class StumpGrow : MonoBehaviour
             GameObject branchPart = Instantiate(branchSprite, (Vector3)currentBranchPos, orientation);
 
             branchPart.transform.localScale = new Vector3(1, scale, 1);
+
+            SpriteRenderer[] arr = branchPart.GetComponentsInChildren<SpriteRenderer>();
+
+            foreach (SpriteRenderer s in arr)
+            {
+                s.sortingOrder = spriteNum;
+            }
+
+            spriteNum++;
 
             manager.AddBranchSprite(branchID, branchPart);
         }
