@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
     {
         timeLeft -= Time.deltaTime;
 
-        if (timeLeft <= 0)
+        if (timeLeft <= -59.99f)
         {
             timeLeft = 0;
         }
@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
 
     public int GetTimeLeft()
     {
-        return (int)(timeLeft + 0.99f);
+        return (int)(timeLeft + 60f);
     }
 
     public void DeleteBranch(int branchID)
